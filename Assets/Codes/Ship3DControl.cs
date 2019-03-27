@@ -1,0 +1,34 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Ship3DControl : MonoBehaviour
+{
+    public Rigidbody rdb;
+    Vector3 inputaxis;
+    public TrailRenderer tr,tl;
+    // Start is called before the first frame update
+    void Start()
+    {
+       
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        inputaxis = new Vector3(Input.GetAxis("Vertical"), 0,-Input.GetAxis("Horizontal"));
+    }
+    void FixedUpdate()
+    {
+        float trail= Vector3.Angle(transform.forward, rdb.velocity.normalized)*0.01f;
+        tr.time = trail;
+        tl.time = trail;
+
+        //adiciona o torque relativo para movimento avionico
+        rdb.AddRelativeTorque(inputaxis * 10000);
+        //calcula o roll da aeronave pelo angulo dos eixos
+        float roll = Vector3.Angle(transform.right, Vector3.up)-90;
+        //adiciona torque global para curva 
+        rdb.AddTorque(new Vector3(0, roll*50, 0));
+        rdb.AddRelativeForce(new Vector3(0, 0, 100000));
+    }
+}

@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             particlefire.Emit(1);
+            
         }
     }
 }
