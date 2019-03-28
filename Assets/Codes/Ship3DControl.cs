@@ -15,16 +15,18 @@ public class Ship3DControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputaxis = new Vector3(Input.GetAxis("Vertical"), 0,-Input.GetAxis("Horizontal"));
+       
     }
     void FixedUpdate()
     {
+        inputaxis = new Vector3(Input.GetAxis("Vertical") * 10000, 0, -Input.GetAxis("Horizontal") * 40000);
+
         float trail= Vector3.Angle(transform.forward, rdb.velocity.normalized)*0.01f;
         tr.time = trail;
         tl.time = trail;
 
         //adiciona o torque relativo para movimento avionico
-        rdb.AddRelativeTorque(inputaxis * 10000);
+        rdb.AddRelativeTorque(inputaxis);
         //calcula o roll da aeronave pelo angulo dos eixos
         float roll = Vector3.Angle(transform.right, Vector3.up)-90;
         //adiciona torque global para curva 
