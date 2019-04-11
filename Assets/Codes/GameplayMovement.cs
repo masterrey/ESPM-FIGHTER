@@ -24,7 +24,7 @@ public class GameplayMovement : MonoBehaviour
         Quaternion lookat= Quaternion.LookRotation(waypoints[index].transform.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, lookat, Time.deltaTime*0.1f);
 
-        transform.position = Vector3.MoveTowards(transform.position, 
-            waypoints[index].transform.position, Time.deltaTime*50);
+        transform.position = Vector3.Lerp(transform.position, 
+            waypoints[index].transform.position, Time.deltaTime);
     }
 }
